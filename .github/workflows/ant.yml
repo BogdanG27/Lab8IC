@@ -1,0 +1,31 @@
+# This workflow will build a Java project with Ant
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-ant
+
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/lab8@v1
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Build with Ant
+      run: ant -noinput -buildfile build.xml
+    - name: Compile and Run
+      run: javac /src/*.java; java mainClass.class
+    - name: Generate Javadoc
+      run: javadoc -d lab8/src -sourcepath lab8/src/*.java
+    - name: Generate Jar file
+      run: jar cfm mainClass.jar Manifest.txt mainClass.class
