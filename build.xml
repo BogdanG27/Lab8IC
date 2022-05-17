@@ -30,12 +30,6 @@
             </manifest>
         </jar>
     </target>
-    
-    <target name="comp and run" depends="init"
-           description="compile and run">
-        <javac srcdir="${src}" destdir="${build}"/>
-        <java mainClass>
-    </target>
 
     <target name="run" depends="dist">
         <java jar="${dist}/${ant.project.name}.jar" fork="true"  failonerror="true"/>
